@@ -1,0 +1,98 @@
+.cartao {
+    width: 200px;
+    height: 80px;
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #AFBAC1;
+    float: left;
+    position: relative;
+    padding: 5px;
+    margin: 5px;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px #00000040;
+}
+.cartao:hover {
+    width: 207px;
+    height: 84px;
+    transition: 0.2s;
+   
+}
+
+.cartao-indisponivel{
+    background-color: #D6D6D6;
+}
+
+.icone-ocupado {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(251,63,63,1) 0%, rgb(177 8 8) 100%);
+}
+
+.icone-chamando {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(251,63,63,1) 0%, rgb(177 8 8) 100%);
+    animation: piscar 1s linear infinite;
+}
+
+@keyframes piscar {
+    50% {
+        opacity: 0;
+    }
+}
+
+.icone-disponivel {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(27 255 0) 0%, rgb(161 217 147) 100%);
+}
+
+.icone-indisponivel {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #9d9d9d;
+}
+
+.icone-pausa {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(255 129 0) 0%, rgb(201 121 0) 100%);
+}
+
+.icone-posicao {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.nome{
+    font-weight: 700;
+}
+
+.agente{
+    font-style: italic;
+    font-weight: 200;
+}
+
+.navbar{
+    background-color: #3E54A1;
+}
+
+.navbar a{
+    color: #F5F6F4;
+    transition: 0.5s;
+}
+.navbar a:hover{
+    color: #97A3C3;
+    transition: 0.5s;
+}
+.navbar .navbar-brand:hover{
+    opacity: 0.6;
+    transition: 0.5s;
+}
