@@ -17,6 +17,7 @@ function obterDados() {
         },
         complete: function () {
             setTimeout(obterDados, 10000)
+            $('#load').hide()
         }
     });
 }

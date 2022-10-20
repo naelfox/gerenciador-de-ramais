@@ -18,7 +18,7 @@ class Ramais
 
     public function __construct()
     {
-        $this->db = new Model();
+        $this->db = new Database();
         $acoesDosAgentes = $this->obterAcoesDosAgentes(file('filas'));
         $this->definirStatusDosRamais($acoesDosAgentes);
         $this->definirNomesDosAgentes($acoesDosAgentes);
