@@ -1,16 +1,15 @@
 <?php
-
-
+header("Content-type: application/json; charset=utf-8");
 require './ramais.php';
 require './database.php';
 require './environment.php';
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if (isset($_GET)) {
 
     switch ($_GET['action']) {
-        case 'obterInformacoes':
-            echo json_encode((new Ramais())->obterInformacoes());
+        case 'obterDados':
+            echo json_encode((new Ramais())->obterDados());
             break;
         default:
             echo '404';

@@ -1,5 +1,4 @@
 <?php
-header("Content-type: application/json; charset=utf-8");
 
 class Ramais
 {
@@ -7,7 +6,7 @@ class Ramais
     private $status_ramais = array();
     private $agentes = array();
     private $info_ramais = array();
-    private const status_da_chamada = array(
+    private const STATUS_DA_CHAMADA = array(
         '(Ring)' => 'chamando',
         '(In use)' => 'ocupado',
         '(Unavailable)' => 'indisponivel',
@@ -22,7 +21,7 @@ class Ramais
         $acoesDosAgentes = $this->obterAcoesDosAgentes(file('filas'));
         $this->definirStatusDosRamais($acoesDosAgentes);
         $this->definirNomesDosAgentes($acoesDosAgentes);
-        $this->definirInformacoesDosRamais();
+        $this->definirInformacoesDosRamais(file('ramais'));
     }
 
     public function definirStatusDosRamais(array $acoesDosAgentes): void
@@ -30,7 +29,7 @@ class Ramais
         foreach ($acoesDosAgentes as $acao) {
             $status = $this->obterStatusDaChamada($acao);
             $ramal = $this->obterRamal($acao);
-            $this->status_ramais[$ramal] = array('status' => self::status_da_chamada[$status]);
+            $this->status_ramais[$ramal] = array('status' => self::STATUS_DA_CHAMADA[$status]);
         }
     }
 
@@ -61,38 +60,47 @@ class Ramais
 
     public function obterStatusDaChamada(string $acao): string
     {
-        foreach (array_keys(self::status_da_chamada) as $key) {
+        foreach (array_keys(self::STATUS_DA_CHAMADA) as $key) {
             if (strstr($acao, $key)) {
                 return $key;
             }
         };
     }
 
-    public function definirInformacoesDosRamais(): void
+    public function definirInformacoesDosRamais(array $ramais): void
     {
-        $ramais = $this->db->consulta();
-        foreach ($ramais as $ramal) {
-            if ($ramal['host'] == 'Unspecified' and $ramal['status'] == 'UNKNOWN') {
-                $this->inserirInformacoes($ramal);
-            } else if ($ramal['status'] == 'OK') {
-                $this->inserirInformacoes($ramal);
-            }
-        }
+
+        echo '<pre>';
+        print_r($ramais);
+        echo '</pre>';
+        // $ramais = $this->db->consulta();
+        // foreach ($ramais as $ramal) {
+        //     if ($ramal['host'] == 'Unspecified' and $ramal['status'] == 'UNKNOWN') {
+        //         $this->inserirInformacoes($ramal);
+        //     } else if ($ramal['status'] == 'OK') {
+        //         $this->inserirInformacoes($ramal);
+        //     }
+        // }
     }
 
     public function inserirInformacoes(array $ramal): void
     {
         extract($ramal);
         $this->info_ramais[$name] = array(
-            'nome' => $name,
-            'ramal' => $username,
-            'online' => false,
-            'status' => $this->status_ramais[$name]['status'],
-            'agente' => $this->agentes[$username]['agente']
+            'name' => $name,
+            'username' => $username,
+            'host' => false,
+            'dyn' => $this->status_ramais[$name]['status'],
+            'nat' => $this->agentes[$username]['agente'],
+            'acl' => $this->agentes[$username]['agente'],
+            'port' => $this->agentes[$username]['agente'],
+            'status' => $this->agentes[$username]['agente'],
+            'status_no_grupo' => $this->agentes[$username]['agente'],
+            'agente' => $this->agentes[$username]['agente'],
         );
     }
 
-    public function obterInformacoes()
+    public function obterDados()
     {
         return $this->info_ramais;
     }

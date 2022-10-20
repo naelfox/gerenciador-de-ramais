@@ -6,7 +6,7 @@ function obterDados() {
         url: `${urlAtual}lib/app.php`,
         type: "GET",
         data: {
-            action: 'obterInformacoes'
+            action: 'obterDados'
         },
         success: function (data) {
             adicionarCartao(data)
