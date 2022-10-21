@@ -27,13 +27,18 @@ class Database
         );
     }
 
-    public function consulta()
+    public function consultarTudo()
     {
         $sql = "SELECT * FROM ramais";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function insert()
+    public function inserir()
     {
     }
+
+ /*
+
+criar um CRUD
+ */
 }

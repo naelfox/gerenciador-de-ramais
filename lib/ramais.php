@@ -75,18 +75,25 @@ class Ramais
 
             $index = $this->vericarIndiceDoStatus($ramalDados);
 
-            if (!is_null($index) and $ramalDados[1] == '(Unspecified)' and $ramalDados[$index] == 'UNKNOWN') {
-
-                // list($name, $username) = explode('/', $arr[0]);
-
-                echo "UNKNOWN";
-            } else if (!is_null($index) and $ramalDados[$index] == "OK") {
-
-                echo "OK";
-                // list($name, $username) = explode('/', $arr[0]);
-
+            if (!empty($index) and $ramalDados[1] == '(Unspecified)' and $ramalDados[$index] == 'UNKNOWN') {
+                $this->inserirInformacoes($ramalDados, false);
+            } else if (!empty($index) and $ramalDados[$index] == "OK") {
+                $this->inserirInformacoes($ramalDados, true);
             }
         }
+    }
+
+    public function inserirInformacoes(array $ramalDados, bool $online): void
+    {
+        list($name,$username) = explode('/',$ramalDados[0]); 
+        $this->info_ramais[$name] = array(
+            'name' => $name,
+            'username' => $username,
+            'host' => $ramalDados[1],
+            'online' => $online ? 'online' : 'offline',
+            'status_no_grupo' => $this->status_ramais[$username]['status'],
+            'agente' => $this->agentes[$username]['agente'],
+        );
     }
 
     public function vericarIndiceDoStatus(array $array)
@@ -101,8 +108,6 @@ class Ramais
             $chave = array_search($tipo, $array);
             if(!empty($chave)){
                 return $chave;  
-            }else{
-                return null;
             }
         }
     }
@@ -114,25 +119,11 @@ class Ramais
         return array_map('trim', array_values($arr));
     }
 
-    public function inserirInformacoes(array $ramal): void
-    {
-        extract($ramal);
-        $this->info_ramais[$name] = array(
-            'name' => $name,
-            'username' => $username,
-            'host' => false,
-            'dyn' => $this->status_ramais[$name]['status'],
-            'nat' => $this->agentes[$username]['agente'],
-            'acl' => $this->agentes[$username]['agente'],
-            'port' => $this->agentes[$username]['agente'],
-            'status' => $this->agentes[$username]['agente'],
-            'status_no_grupo' => $this->agentes[$username]['agente'],
-            'agente' => $this->agentes[$username]['agente'],
-        );
-    }
-
     public function obterDados()
     {
+        echo '<pre>';
+        print_r($this->info_ramais);
+        echo '</pre>';
         return $this->info_ramais;
     }
 }
