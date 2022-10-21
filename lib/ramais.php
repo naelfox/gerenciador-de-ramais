@@ -67,20 +67,51 @@ class Ramais
         };
     }
 
-    public function definirInformacoesDosRamais(array $ramais): void
+    public function definirInformacoesDosRamais(array $dadosDeRamais): void
     {
 
-        echo '<pre>';
-        print_r($ramais);
-        echo '</pre>';
-        // $ramais = $this->db->consulta();
-        // foreach ($ramais as $ramal) {
-        //     if ($ramal['host'] == 'Unspecified' and $ramal['status'] == 'UNKNOWN') {
-        //         $this->inserirInformacoes($ramal);
-        //     } else if ($ramal['status'] == 'OK') {
-        //         $this->inserirInformacoes($ramal);
-        //     }
-        // }
+        foreach ($dadosDeRamais as $ramal) {
+            $ramalDados = $this->converterStringDoRamalParaArray($ramal);
+
+            $index = $this->vericarIndiceDoStatus($ramalDados);
+
+            if (!is_null($index) and $ramalDados[1] == '(Unspecified)' and $ramalDados[$index] == 'UNKNOWN') {
+
+                // list($name, $username) = explode('/', $arr[0]);
+
+                echo "UNKNOWN";
+            } else if (!is_null($index) and $ramalDados[$index] == "OK") {
+
+                echo "OK";
+                // list($name, $username) = explode('/', $arr[0]);
+
+            }
+        }
+    }
+
+    public function vericarIndiceDoStatus(array $array)
+    {
+        $tipos_de_status = array(
+            'UNKNOWN',
+            'OK',
+            'Unmonitored'
+        );
+
+        foreach ($tipos_de_status as $tipo) {
+            $chave = array_search($tipo, $array);
+            if(!empty($chave)){
+                return $chave;  
+            }else{
+                return null;
+            }
+        }
+    }
+
+    public function converterStringDoRamalParaArray(string $linha): array
+    {
+        $arr = array_filter(explode(' ', $linha), 'strlen');
+
+        return array_map('trim', array_values($arr));
     }
 
     public function inserirInformacoes(array $ramal): void
