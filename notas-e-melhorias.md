@@ -4,12 +4,15 @@ Notas:
 
 
 Instalação:
- - Inicie seu servidor localhost
- - Configure o acesso do seu banco de dados no arquivo .env e crie a tabela com o modelo de ramais.sql
+ - Inicie seu servidor localhost.
+ - Configure os acessos do seu banco de dados MYSQL no arquivo .env.
+ - Crie a tabela chamada monitoramento_de_ramais.
+ - Abra o arquivo ramais.sql e execute no seu banco todas as querys uma a uma
+ - Sua aplicação já está pronta.
 
  Melhorias
  - Implementação de um novo código de legível e com manuterabildade no lado do backend, visando alterações futuras.
  - Criação de arquivo App para ser o gerenciador de requisições
  - Ajuste no layout baseado em uma melhor visibilidade para o usuário, respeitando as melhores regras de contraste.
- - Colocando as acessos do banco em um local seguro
+ - Colocando as acessos do banco em um local seguro, sem ficarem expostas.
  
