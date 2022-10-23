@@ -6,7 +6,7 @@ class Informacoes{
 
     public function __construct()
     {
-        $init = new Ramais();
+        new Ramais();
         $this->db = new Database;
     }
 
