@@ -16,7 +16,8 @@ function obterDados() {
             adicionarAvisoDeConfiguracao()
         },
         complete: function () {
-            // setTimeout(obterDados, 10000)
+            // setTimeout(obterDados, 1000)
+            setTimeout(obterDados, 10000)
             $('#load').hide()
         }
     });
@@ -31,12 +32,12 @@ function adicionarCartao(data) {
     }
     for (let i in data) {
         $('#cartoes').append(`
-        <div class="cartao cartao-${data[i].status}">
-            <div class='nome'>${data[i].nome}</div>
+        <div class="cartao cartao-${data[i].status_no_grupo}">
+            <div class='nome'>${data[i].name}</div>
             <p class='agente'>
             <img class='px-1' src="./img/user.png" height=20 alt="${data[i].agente} foto">${data[i].agente}
             </p>
-            <span class="icone-${data[i].status} icone-posicao"></span>
+            <span class="icone-${data[i].status_no_grupo} icone-posicao"></span>
         </div>`)
     }
 }

@@ -94,7 +94,7 @@ class Ramais
             'name' => $name,
             'username' => $username,
             'host' => $ramalDados[1],
-            'status_no_grupo' => $online ? $this->definirStatusNoGrupo($username) : 'offline',
+            'status_no_grupo' => $online ? $this->definirStatusNoGrupo($username) : 'indisponivel',
             'agente' => $this->definirAgente($username),
         );
     }

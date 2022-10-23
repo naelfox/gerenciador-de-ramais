@@ -53,7 +53,6 @@ class Database
         foreach ($dados as $ramalDados) {
             if (in_array($ramalDados['name'], $ramaisDoBanco)) {
                 $this->atualizar($ramalDados);
-                
                 $index = array_search($ramalDados['name'], $ramaisDoBanco);
                 unset($ramaisDoBanco[$index]);
             } else {
@@ -73,7 +72,7 @@ class Database
 
         extract($dados);
 
-        $query = "INSERT INTO ramais (name, username, host, status_no_grupo, agente) VALUES (:name :username, :host, :status_no_grupo, :agente)";
+        $query = "INSERT INTO ramais (name, username, host, status_no_grupo, agente) VALUES (:name, :username, :host, :status_no_grupo, :agente)";
 
         $statement = $this->conn->prepare($query);
 
