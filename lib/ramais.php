@@ -1,6 +1,6 @@
 <?php
 
-class Ramais
+class Ramais 
 {
     private $status_ramais = array();
     private $agentes = array();

@@ -12,12 +12,6 @@
     background-color: #fff;
     box-shadow: 1px 1px 5px #00000040;
 }
-.cartao:hover {
-    width: 207px;
-    height: 84px;
-    transition: 0.2s;
-   
-}
 
 .cartao-indisponivel{
     background-color: #D6D6D6;
