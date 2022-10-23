@@ -1,10 +1,17 @@
 <?php 
 
-
 class Informacoes{
 
-    // public function obterDados()
-    // {
-    //     return $this->info_ramais;
-    // }
+    private $db;
+
+    public function __construct()
+    {
+        $init = new Ramais();
+        $this->db = new Database;
+    }
+
+    public function obterDados()
+    {
+        return $this->db->consultarTudo();
+    }
 }

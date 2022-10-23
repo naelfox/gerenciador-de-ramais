@@ -1,5 +1,6 @@
 Notas:
  - Em filas, quando o status está como (paused) (Not in use) o código prioriza (paused). mas se houver apenas (Not in use) ficará como disponível.
+ - Como se trata de um teste, a operação de Deletar no banco de dados, apaga os registros no banco definitivamente.
 
 
 

@@ -2,7 +2,6 @@
 
 class Ramais
 {
-    private $db;
     private $status_ramais = array();
     private $agentes = array();
     private $info_ramais = array();
@@ -17,7 +16,12 @@ class Ramais
 
     public function __construct()
     {
-        $this->db = new Database();
+        $this->carregarDadosDosArquivos();
+        ((new Database())->mesclarDadosNoBanco($this->info_ramais));
+    }
+
+    public function carregarDadosDosArquivos()
+    {
         $acoesDosAgentes = $this->obterAcoesDosAgentes(file('filas'));
         $this->definirStatusDosRamais($acoesDosAgentes);
         $this->definirNomesDosAgentes($acoesDosAgentes);
@@ -28,7 +32,7 @@ class Ramais
     {
         foreach ($acoesDosAgentes as $acao) {
             $status = $this->obterStatusDaChamada($acao);
-            $ramal = $this->obterRamal($acao);
+            $ramal = $this->obterRamalNaAcao($acao);
             $this->status_ramais[$ramal] = array('status' => self::STATUS_DA_CHAMADA[$status]);
         }
     }
@@ -38,7 +42,7 @@ class Ramais
         foreach ($acoesDosAgentes as $acao) {
             $arr = explode(' ', trim($acao));
             $agente = end($arr);
-            $ramal = $this->obterRamal($acao);
+            $ramal = $this->obterRamalNaAcao($acao);
             $this->agentes[$ramal] = array('agente' => $agente);
         }
     }
@@ -51,7 +55,7 @@ class Ramais
         return array_values($acoesDosAgentes);
     }
 
-    public function obterRamal(string $acao): int
+    public function obterRamalNaAcao(string $acao): int
     {
         $arr = explode(' ', trim($acao));
         list($tech, $ramal) = explode('/', $arr[0]);
@@ -85,15 +89,32 @@ class Ramais
 
     public function inserirInformacoes(array $ramalDados, bool $online): void
     {
-        list($name,$username) = explode('/',$ramalDados[0]); 
+        list($name, $username) = explode('/', $ramalDados[0]);
         $this->info_ramais[$name] = array(
             'name' => $name,
             'username' => $username,
             'host' => $ramalDados[1],
-            'online' => $online ? 'online' : 'offline',
-            'status_no_grupo' => $this->status_ramais[$username]['status'],
-            'agente' => $this->agentes[$username]['agente'],
+            'status_no_grupo' => $online ? $this->definirStatusNoGrupo($username) : 'offline',
+            'agente' => $this->definirAgente($username),
         );
+    }
+
+    public function definirStatusNoGrupo(string $ramal): string
+    {
+        if (isset($this->status_ramais[$ramal]['status'])) {
+            return $this->status_ramais[$ramal]['status'];
+        } else {
+            return 'disponivel';
+        }
+    }
+
+    public function definirAgente(string $ramal): string
+    {
+        if (isset($this->agentes[$ramal]['agente'])) {
+            return $this->agentes[$ramal]['agente'];
+        } else {
+            return 'Sem Agente';
+        }
     }
 
     public function vericarIndiceDoStatus(array $array)
@@ -106,8 +127,8 @@ class Ramais
 
         foreach ($tipos_de_status as $tipo) {
             $chave = array_search($tipo, $array);
-            if(!empty($chave)){
-                return $chave;  
+            if (!empty($chave)) {
+                return $chave;
             }
         }
     }
@@ -119,11 +140,4 @@ class Ramais
         return array_map('trim', array_values($arr));
     }
 
-    public function obterDados()
-    {
-        echo '<pre>';
-        print_r($this->info_ramais);
-        echo '</pre>';
-        return $this->info_ramais;
-    }
 }

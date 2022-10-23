@@ -16,7 +16,7 @@ function obterDados() {
             adicionarAvisoDeConfiguracao()
         },
         complete: function () {
-            setTimeout(obterDados, 10000)
+            // setTimeout(obterDados, 10000)
             $('#load').hide()
         }
     });
