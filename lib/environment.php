@@ -1,5 +1,6 @@
 <?php
 
+namespace Lib;
 class Environment
 {
     private static $diretorioEnv = __DIR__ . "/../.env";

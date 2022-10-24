@@ -1,10 +1,9 @@
 <?php
 header("Content-type: application/json; charset=utf-8");
 
-require './ramais.php';
-require './database.php';
-require './environment.php';
-require './informacoes.php';
+require "../vendor/autoload.php";
+
+use Lib\Informacoes;
 
 
 if (isset($_GET)) {

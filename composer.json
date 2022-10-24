@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "classmap": [
+            "./lib/database.php",
+            "./lib/environment.php",
+            "./lib/informacoes.php",
+            "./lib/ramais.php"
+        ],
+        "psr-4": {
+            "Lib\\": "lib"
+        }
+    }
+}

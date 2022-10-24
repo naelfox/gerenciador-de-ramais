@@ -1,5 +1,6 @@
 <?php
 
+namespace Lib;
 class Ramais 
 {
     private $status_ramais = array();
